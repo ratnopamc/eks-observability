@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  namespace: golang
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: webapp
+      role: webapp-service
+  template:
+    metadata:
+      labels:
+        app: webapp
+        role: webapp-service             
+    spec: 
+      containers:          
+        - name: go  
+          image: public.ecr.aws/awsvijisarathy/prometheus-webapp:latest
+          imagePullPolicy: Always   
+          resources:
+            requests:
+              cpu: "256m"
+              memory: "512Mi"
+            limits:
+              cpu: "256m"
+              memory: "512Mi"
